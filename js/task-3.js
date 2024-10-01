@@ -1,4 +1,109 @@
 `use strict`;
+//-----01-----------------------------------------------------------------------------------------------------------------
+
+function getElementWidth(content, padding, border) {
+    return `${Number.parseFloat(content) + (Number.parseFloat(padding) + Number.parseFloat(border)) * 2}px`
+}
+console.log(getElementWidth("50px", "8px", "4px")); // 74
+console.log(getElementWidth("60px", "12px", "8.5px")); // 101
+console.log(getElementWidth("200px", "0px", "0px")); // 200
+//-----02-----------------------------------------------------------------------------------------------------------------
+
+function checkForSpam(message) {
+    return message.toLowerCase().includes("spam") || message.toLowerCase().includes("sale");
+ }
+console.log(checkForSpam("Latest technology news")); // false
+console.log(checkForSpam("JavaScript weekly newsletter")); // false
+console.log(checkForSpam("Get best sale offers now!")); // true
+console.log(checkForSpam("Amazing SalE, only tonight!")); // true
+console.log(checkForSpam("Trust me, this is not a spam message")); // true
+console.log(checkForSpam("Get rid of sPaM emails. Our book in on sale!")); // true
+console.log(checkForSpam("[SPAM] How to earn fast money?")); // true
+//-----03-----------------------------------------------------------------------------------------------------------------
+
+function filterArray(numbers, value) {
+    let tag = [];
+    for ( const tags of numbers) {
+        
+        if (tags > value) {
+            tag.push(tags);
+        } else {
+            [];
+        }
+    }
+    return tag;
+}
+console.log(filterArray([1, 2, 3, 4, 5], 3)); // [4, 5]
+console.log(filterArray([1, 2, 3, 4, 5], 4)); // [5]
+console.log(filterArray([1, 2, 3, 4, 5], 5)); // []
+console.log(filterArray([12, 24, 8, 41, 76], 38)); // [41, 76]
+console.log(filterArray([12, 24, 8, 41, 76], 20)); // [24, 41, 76]
+//-----04-----------------------------------------------------------------------------------------------------------------
+
+function calculateTotalPrice(productName) {
+  const products = [
+    { name: "Radar", price: 1300, quantity: 4 },
+    { name: "Scanner", price: 2700, quantity: 3 },
+    { name: "Droid", price: 400, quantity: 7 },
+    { name: "Grip", price: 1200, quantity: 9 },
+  ];
+
+  for(const i of products){
+    if(i.name === productName){
+      return i.price * i.quantity;
+    }
+  }
+}
+console.log(calculateTotalPrice("Radar"));  //5200
+//-----05-----------------------------------------------------------------------------------------------------------------
+
+// Напиши стрілочну функцію sortByDescendingFriendCount(users) , яка прийматиме один параметр users — масив об’єктів користувачів.
+// Функція має повертати масив усіх користувачів, відсортованих за спаданням кількостій їх друзів (властивість friends).
+// Візьми код нижче і встав після оголошення своєї функції для перевірки коректності її роботи. У консоль будуть виведені результати її роботи.
+const sortByDescendingFriendCount = (users) => {
+    return users.toSorted((a, b) => b.friends.length - a.friends.length);
+};
+
+console.log(
+  sortByDescendingFriendCount([
+    {
+      name: "Moore Hensley",
+      friends: ["Sharron Pace"],
+      gender: "male"
+    },
+    {
+      name: "Sharlene Bush",
+      friends: ["Briana Decker", "Sharron Pace"],
+      gender: "female"
+    },
+    {
+      name: "Ross Vazquez",
+      friends: ["Marilyn Mcintosh", "Padilla Garrison", "Naomi Buckner"],
+      gender: "male"
+    },
+    {
+      name: "Elma Head",
+      friends: ["Goldie Gentry", "Aisha Tran"],
+      gender: "female"
+    },
+    {
+      name: "Carey Barr",
+      friends: ["Jordan Sampson", "Eddie Strong"],
+      gender: "male"
+    },
+    {
+      name: "Blackburn Dotson",
+      friends: ["Jacklyn Lucas", "Linda Chapman"],
+      gender: "male"
+    },
+    {
+      name: "Sheree Anthony",
+      friends: ["Goldie Gentry", "Briana Decker"],
+      gender: "female"
+    }
+  ])
+);
+//-----06-----------------------------------------------------------------------------------------------------------------
 
 class StringBuilder {
     #value;
@@ -12,20 +117,15 @@ class StringBuilder {
     }    
     
     padEnd(str) {
-        const length = str.length + this.#value.length; 
-         this.#value = this.#value.padEnd(length, str); 
+         this.#value += str; 
     }
 
     padStart(str) {
-        const length = str.length + this.#value.length;
-        this.#value = this.#value.padStart(length, str);
+        this.#value = str + this.#value;
     }
 
     padBoth(str) {
-        const halfLength = str.length + this.#value.length;
-        const totalLength = str.length * 2 + this.#value.length;
-        this.#value = this.#value.padStart(halfLength, str);
-        this.#value = this.#value.padEnd(totalLength, str);
+        this.#value = str + this.#value + str;
     }
 }
 
